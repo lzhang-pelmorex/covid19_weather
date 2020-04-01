@@ -1,5 +1,5 @@
 - dashboard: covid19_weather
-  title: covid19_weather_snowflake
+  title: covid19_weather
   layout: newspaper
   elements:
   - title: 'Average #s of positive cases by state'
@@ -7,8 +7,8 @@
     model: covid19_weather
     explore: covid_weather
     type: looker_geo_choropleth
-    fields: [covid_weather.state, covid_weather.positive_total]
-    sorts: [covid_weather.positive_total desc]
+    fields: [covid_weather.state, covid_weather.total_positive]
+    sorts: [covid_weather.state]
     limit: 500
     map: usa
     map_projection: ''
@@ -29,7 +29,8 @@
     model: covid19_weather
     explore: covid_weather
     type: looker_line
-    fields: [covid_weather.day, covid_weather.positive, covid_weather.temp, covid_weather.humidity]
+    fields: [covid_weather.day, covid_weather.median_temperature, covid_weather.median_humidity,
+      covid_weather.total_positive]
     fill_fields: [covid_weather.day]
     sorts: [covid_weather.day desc]
     limit: 500
@@ -57,19 +58,23 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: covid_weather.temp,
-            id: covid_weather.temp, name: Temp}, {axisId: covid_weather.humidity,
-            id: covid_weather.humidity, name: Humidity}], showLabels: true, showValues: true,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear},
-      {label: !!null '', orientation: right, series: [{axisId: covid_weather.positive,
-            id: covid_weather.positive, name: Positive}], showLabels: true, showValues: true,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    y_axes: [{label: '', orientation: left, series: [{axisId: covid_weather.median_temperature,
+            id: covid_weather.median_temperature, name: Median Temperature}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
+        label: '', orientation: left, series: [{axisId: covid_weather.median_humidity,
+            id: covid_weather.median_humidity, name: Median Humidity}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
+        label: '', orientation: right, series: [{axisId: covid_weather.total_positive,
+            id: covid_weather.total_positive, name: Total Positive}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, type: linear}]
     series_types:
       covid_weather.positive: column
+      covid_weather.total_positive: column
     series_colors:
       covid_weather.positive: "#db7f2a"
       covid_weather.temp: "#A2BF39"
       covid_weather.humidity: "#62bad4"
+      covid_weather.total_positive: "#ff7f00"
     series_labels:
       covid_weather.temp: Temperature
       covid_weather.positive: Positive Cases

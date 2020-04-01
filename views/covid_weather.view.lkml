@@ -36,22 +36,6 @@ order by state_name,day desc;;
     sql: ${TABLE}.day ;;
   }
 
-  measure: death {
-    type: number
-    sql: avg(${TABLE}.DEATH) ;;
-    value_format: "0"
-  }
-
-  measure: feelslike {
-    type: number
-    sql: avg(${TABLE}.FEELSLIKE) ;;
-  }
-
-  measure: humidity {
-    type: number
-    sql: avg(${TABLE}.HUMIDITY) ;;
-  }
-
   dimension: lat {
     type: number
     sql: ${TABLE}.LAT ;;
@@ -62,16 +46,26 @@ order by state_name,day desc;;
     sql: ${TABLE}.LNG ;;
   }
 
-  measure: positive {
+  measure: total_death {
     type: number
-    sql: avg(${TABLE}.POSITIVE) ;;
-    value_format: "0"
+    sql: sum(${TABLE}.DEATH) ;;
+    value_format: "#,##0"
   }
 
-  measure: positive_total {
+  measure: total_positive {
     type: number
     sql: sum(${TABLE}.POSITIVE) ;;
-    value_format: "0"
+    value_format: "#,##0"
+  }
+
+  measure: median_feelslike {
+    type: number
+    sql: median(${TABLE}.FEELSLIKE) ;;
+  }
+
+  measure: median_humidity {
+    type: number
+    sql: median(${TABLE}.HUMIDITY) ;;
   }
 
   dimension: state_id {
@@ -84,9 +78,9 @@ order by state_name,day desc;;
     sql: ${TABLE}.STATE_NAME ;;
   }
 
-  measure: temp {
+  measure: median_temperature {
     type: number
-    sql: avg(${TABLE}.TEMP) ;;
+    sql: median(${TABLE}.TEMP) ;;
   }
 
   dimension: location {
