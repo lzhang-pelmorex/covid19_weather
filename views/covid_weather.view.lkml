@@ -4,7 +4,7 @@ view: covid_weather {
     median(w.AVG_TEMPERATURE_AIR_2M_F) temp,
     median(w.AVG_TEMPERATURE_FEELSLIKE_2M_F) feelslike,
     median(w.AVG_HUMIDITY_RELATIVE_2M_PCT) humidity,
-    avg(c.CASES_SINCE_PREV_DAY) positive, avg(c.DEATHS_SINCE_PREV_DAY) death,
+    sum(c.CASES_SINCE_PREV_DAY) positive, sum(c.DEATHS_SINCE_PREV_DAY) death,
     z.state_name, z.STATE_ID state_id,
     avg(z.lat) lat,
     avg(z.lng) lng
