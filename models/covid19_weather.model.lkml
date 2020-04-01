@@ -1,4 +1,5 @@
-connection: "bigquery_wip"
+connection: "snowflakedb"
+
 
 # include all the views
 include: "/views/**/*.view"
@@ -37,4 +38,3 @@ explore: covid_weather {}
 # explore: us_policy_actions {}
 
 # explore: who_situation_reports {}
-
