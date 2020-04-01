@@ -1,5 +1,5 @@
 - dashboard: covid19_weather
-  title: covid19_weather
+  title: covid19_weather_snowflake
   layout: newspaper
   elements:
   - title: 'Average #s of positive cases by state'
