@@ -66,8 +66,8 @@
     col: 8
     width: 16
     height: 12
-  - title: By positive cases ratio (total cases/population)
-    name: By positive cases ratio (total cases/population)
+  - title: By positive case ratio (total cases/population)
+    name: By positive case ratio (total cases/population)
     model: covid19_weather
     explore: covid_weather
     type: looker_geo_choropleth
