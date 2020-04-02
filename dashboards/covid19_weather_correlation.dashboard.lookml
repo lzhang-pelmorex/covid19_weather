@@ -1,5 +1,5 @@
 - dashboard: covid19_weather_correlation
-  title: COVID19 Weather Correlation
+  title: US COVID19 Weather Correlation
   layout: newspaper
   elements:
   - title: 'By #s of positive cases'
