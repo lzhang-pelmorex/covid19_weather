@@ -1,13 +1,13 @@
-- dashboard: covid19_weather
-  title: covid19_weather
+- dashboard: covid19_weather_correlation
+  title: COVID19 Weather Correlation
   layout: newspaper
   elements:
-  - title: 'Average #s of positive cases by state'
-    name: 'Average #s of positive cases by state'
+  - title: 'By #s of positive cases ratio (total cases/population)'
+    name: 'By #s of positive cases ratio (total cases/population)'
     model: covid19_weather
     explore: covid_weather
     type: looker_geo_choropleth
-    fields: [covid_weather.state, covid_weather.total_positive]
+    fields: [covid_weather.state, covid_weather.positive_ratio]
     sorts: [covid_weather.state]
     limit: 500
     map: usa
@@ -22,15 +22,15 @@
       Date_Range: covid_weather.day
     row: 0
     col: 0
-    width: 10
-    height: 10
-  - title: Weather Correlation
-    name: Weather Correlation
+    width: 9
+    height: 6
+  - title: Weather Correlation - average over time
+    name: Weather Correlation - average over time
     model: covid19_weather
     explore: covid_weather
     type: looker_line
-    fields: [covid_weather.day, covid_weather.median_temperature, covid_weather.median_humidity,
-      covid_weather.total_positive]
+    fields: [covid_weather.day, covid_weather.total_positive, covid_weather.average_temperature,
+      covid_weather.average_humidity]
     fill_fields: [covid_weather.day]
     sorts: [covid_weather.day desc]
     limit: 500
@@ -75,6 +75,7 @@
       covid_weather.temp: "#A2BF39"
       covid_weather.humidity: "#62bad4"
       covid_weather.total_positive: "#ff7f00"
+      covid_weather.average_humidity: "#62bad4"
     series_labels:
       covid_weather.temp: Temperature
       covid_weather.positive: Positive Cases
@@ -83,9 +84,44 @@
       State: covid_weather.state_id
       Date_Range: covid_weather.day
     row: 0
-    col: 10
-    width: 14
-    height: 10
+    col: 9
+    width: 15
+    height: 12
+  - title: 'By #s of positive cases'
+    name: 'By #s of positive cases'
+    model: covid19_weather
+    explore: covid_weather
+    type: looker_geo_choropleth
+    fields: [covid_weather.total_positive, covid_weather.state]
+    sorts: [covid_weather.total_positive desc]
+    limit: 500
+    map: usa
+    map_projection: ''
+    show_view_names: false
+    quantize_colors: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    series_types: {}
+    listen:
+      State: covid_weather.state_id
+      Date_Range: covid_weather.day
+    row: 6
+    col: 0
+    width: 9
+    height: 6
   filters:
   - name: State
     title: State
