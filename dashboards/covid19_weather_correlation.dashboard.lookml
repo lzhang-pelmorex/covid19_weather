@@ -24,8 +24,8 @@
     col: 0
     width: 9
     height: 6
-  - title: Weather Correlation - average over time
-    name: Weather Correlation - average over time
+  - title: Weather Correlation - Average Values Overtime
+    name: Weather Correlation - Average Values Overtime
     model: covid19_weather
     explore: covid_weather
     type: looker_line
