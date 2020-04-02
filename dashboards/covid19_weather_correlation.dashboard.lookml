@@ -1,5 +1,5 @@
 - dashboard: covid19_weather_correlation
-  title: COVID19 Weather Correlation
+  title: COVID19 US Weather Correlation (Snowflake)
   layout: newspaper
   elements:
   - title: Weather Correlation - Average Values Overtime
