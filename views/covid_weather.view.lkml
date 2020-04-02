@@ -40,7 +40,7 @@ order by state_id,day desc;;
   dimension: state {
     map_layer_name: us_states
     sql: ${TABLE}.state_id ;;
-    drill_fields: [day]
+    drill_fields: [county]
   }
 
   dimension: fip_code {
@@ -48,7 +48,7 @@ order by state_id,day desc;;
     sql: ${TABLE}.fip_code ;;
   }
 
-  dimension: fip {
+  dimension: county {
     map_layer_name: us_counties_fips
     sql: ${TABLE}.fip_code ;;
     drill_fields: [day]

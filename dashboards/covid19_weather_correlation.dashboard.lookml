@@ -1,76 +1,7 @@
 - dashboard: covid19_weather_correlation
-  title: US COVID19 Weather Correlation
+  title: COVID19 Weather Correlation
   layout: newspaper
   elements:
-  - title: 'By #s of positive cases'
-    name: 'By #s of positive cases'
-    model: covid19_weather
-    explore: covid_weather
-    type: looker_map
-    fields: [covid_weather.fip, covid_weather.total_positive]
-    limit: 500
-    map_plot_mode: points
-    heatmap_gridlines: false
-    heatmap_gridlines_empty: false
-    heatmap_opacity: 0.5
-    show_region_field: true
-    draw_map_labels_above_data: true
-    map_tile_provider: light
-    map_position: fit_data
-    map_scale_indicator: 'off'
-    map_pannable: true
-    map_zoomable: true
-    map_marker_type: circle
-    map_marker_icon_name: default
-    map_marker_radius_mode: proportional_value
-    map_marker_units: meters
-    map_marker_proportional_scale_type: linear
-    map_marker_color_mode: fixed
-    show_view_names: false
-    show_legend: true
-    quantize_map_value_colors: false
-    reverse_map_value_colors: false
-    defaults_version: 1
-    listen: {}
-    row: 0
-    col: 0
-    width: 8
-    height: 6
-  - title: By positive case ratio (total cases/population)
-    name: By positive case ratio (total cases/population)
-    model: covid19_weather
-    explore: covid_weather
-    type: looker_map
-    fields: [covid_weather.fip, covid_weather.positive_ratio]
-    sorts: [covid_weather.positive_ratio desc]
-    limit: 500
-    map_plot_mode: points
-    heatmap_gridlines: false
-    heatmap_gridlines_empty: false
-    heatmap_opacity: 0.5
-    show_region_field: true
-    draw_map_labels_above_data: true
-    map_tile_provider: light
-    map_position: fit_data
-    map_scale_indicator: 'off'
-    map_pannable: true
-    map_zoomable: true
-    map_marker_type: circle
-    map_marker_icon_name: default
-    map_marker_radius_mode: proportional_value
-    map_marker_units: meters
-    map_marker_proportional_scale_type: linear
-    map_marker_color_mode: fixed
-    show_view_names: false
-    show_legend: true
-    quantize_map_value_colors: false
-    reverse_map_value_colors: false
-    defaults_version: 1
-    listen: {}
-    row: 6
-    col: 0
-    width: 8
-    height: 6
   - title: Weather Correlation - Average Values Overtime
     name: Weather Correlation - Average Values Overtime
     model: covid19_weather
@@ -135,6 +66,66 @@
     col: 8
     width: 16
     height: 12
+  - title: By positive cases ratio (total cases/population)
+    name: By positive cases ratio (total cases/population)
+    model: covid19_weather
+    explore: covid_weather
+    type: looker_geo_choropleth
+    fields: [covid_weather.state, covid_weather.positive_ratio]
+    sorts: [covid_weather.positive_ratio desc]
+    limit: 500
+    map: usa
+    map_projection: ''
+    show_view_names: false
+    quantize_colors: false
+    colors: [darkorange]
+    series_types: {}
+    defaults_version: 1
+    listen: {}
+    row: 6
+    col: 0
+    width: 8
+    height: 6
+  - title: 'By #s of positive cases'
+    name: 'By #s of positive cases'
+    model: covid19_weather
+    explore: covid_weather
+    type: looker_geo_choropleth
+    fields: [covid_weather.state, covid_weather.total_positive]
+    sorts: [covid_weather.total_positive desc]
+    limit: 500
+    map: usa
+    map_projection: ''
+    show_view_names: false
+    quantize_colors: false
+    colors: [darkorange]
+    map_plot_mode: points
+    heatmap_gridlines: false
+    heatmap_gridlines_empty: false
+    heatmap_opacity: 0.5
+    show_region_field: true
+    draw_map_labels_above_data: true
+    map_tile_provider: light
+    map_position: fit_data
+    map_scale_indicator: 'off'
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle
+    map_marker_icon_name: default
+    map_marker_radius_mode: proportional_value
+    map_marker_units: meters
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: fixed
+    show_legend: true
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
+    defaults_version: 1
+    series_types: {}
+    listen: {}
+    row: 0
+    col: 0
+    width: 8
+    height: 6
   filters:
   - name: State
     title: State
