@@ -20,7 +20,7 @@ covid19 AS (
     inner join "STARSCHEMA_COVID19"."PUBLIC"."DEMOGRAPHICS" d USING(FIPS)
   group by date, c.FIPS, state_id
 )
-select distinct w.day, w.temp, w.feelslike, w.humidity, c.state_id,
+select distinct w.day, w.temp, w.feelslike, w.humidity, c.state_id, FIPS fip_code,
     c.positive, c.death, positive_ratio
 from weather w
     left join covid19 c on c.FIPS=w.FIPS_CODE and c.date=w.day
@@ -35,6 +35,23 @@ order by state_id,day desc;;
   dimension: state_id {
     type: string
     sql: ${TABLE}.STATE_ID ;;
+  }
+
+  dimension: state {
+    map_layer_name: us_states
+    sql: ${TABLE}.state_id ;;
+    drill_fields: [day]
+  }
+
+  dimension: fip_code {
+    type: string
+    sql: ${TABLE}.fip_code ;;
+  }
+
+  dimension: fip {
+    map_layer_name: us_counties_fips
+    sql: ${TABLE}.fip_code ;;
+    drill_fields: [day]
   }
 
   measure: total_death {
@@ -52,7 +69,7 @@ order by state_id,day desc;;
   measure: positive_ratio {
     type: number
     sql: sum(${TABLE}.positive_ratio) ;;
-    value_format: "#,##0"
+    value_format: "0.0000\%"
   }
 
   measure: average_feelslike {
@@ -70,15 +87,4 @@ order by state_id,day desc;;
     sql: avg(${TABLE}.TEMP) ;;
   }
 
-  dimension: location {
-    type: location
-    sql_latitude:${TABLE}.lat ;;
-    sql_longitude:${TABLE}.lng ;;
-  }
-
-  dimension: state {
-    map_layer_name: us_states
-    sql: ${TABLE}.state_id ;;
-    drill_fields: [day]
-  }
 }
