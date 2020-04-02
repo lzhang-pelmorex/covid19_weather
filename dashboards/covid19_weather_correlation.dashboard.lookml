@@ -36,8 +36,8 @@
     col: 0
     width: 8
     height: 6
-  - title: By positive cases ratio (total cases/population)
-    name: By positive cases ratio (total cases/population)
+  - title: By positive case ratio (total cases/population)
+    name: By positive case ratio (total cases/population)
     model: covid19_weather
     explore: covid_weather
     type: looker_map
