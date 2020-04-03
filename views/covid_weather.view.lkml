@@ -15,13 +15,13 @@ covid19 AS (
   select date, c.FIPS, d.ISO3166_2 state_id,
     max(CASES_SINCE_PREV_DAY) positive,
     max(DEATHS_SINCE_PREV_DAY) death,
-    max(CASES_SINCE_PREV_DAY)/max(TOTAL_POPULATION) positive_ratio
+    max(TOTAL_POPULATION) population
   from "STARSCHEMA_COVID19"."PUBLIC"."NYT_US_COVID19" c
     inner join "STARSCHEMA_COVID19"."PUBLIC"."DEMOGRAPHICS" d USING(FIPS)
   group by date, c.FIPS, state_id
 )
 select distinct w.day, w.temp, w.feelslike, w.humidity, c.state_id, FIPS fip_code,
-    c.positive, c.death, positive_ratio
+    c.positive, c.death, population
 from weather w
     left join covid19 c on c.FIPS=w.FIPS_CODE and c.date=w.day
 order by state_id,day desc;;
@@ -66,10 +66,16 @@ order by state_id,day desc;;
     value_format: "#,##0"
   }
 
+  measure: population {
+    type: number
+    sql: sum(${TABLE}.population) ;;
+    value_format: "#,##0"
+    }
+
   measure: positive_ratio {
     type: number
-    sql: sum(${TABLE}.positive_ratio) ;;
-    value_format: "0.0000\%"
+    sql: sum(${TABLE}.POSITIVE)/sum(${TABLE}.population);;
+    value_format: "0.00000\%"
   }
 
   measure: average_feelslike {
