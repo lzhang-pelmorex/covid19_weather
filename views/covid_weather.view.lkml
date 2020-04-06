@@ -11,15 +11,22 @@ view: covid_weather {
   where DATE_VALID_STD >= '2020-01-01'
   group by day, FIPS_CODE
 ),
+covid19_cleanup AS (
+  select distinct date, CASES_SINCE_PREV_DAY, DEATHS_SINCE_PREV_DAY,
+    case when f.fips is not null then f.fips else c.FIPS end FIPS
+  from "STARSCHEMA_COVID19"."PUBLIC"."NYT_US_COVID19" c
+    left join (select value fips from table(split_to_table('36061,36047,36081,36005,36085', ','))) f on lower(c.COUNTY)='new york city' and c.FIPS is null
+),
 covid19 AS (
-  select date, c.FIPS, d.ISO3166_2 state_id,
+  select date, d.ISO3166_2 state_id, c.FIPS,
     max(CASES_SINCE_PREV_DAY) positive,
     max(DEATHS_SINCE_PREV_DAY) death,
     max(TOTAL_POPULATION) population
-  from "STARSCHEMA_COVID19"."PUBLIC"."NYT_US_COVID19" c
+  from covid19_cleanup c
     inner join "STARSCHEMA_COVID19"."PUBLIC"."DEMOGRAPHICS" d USING(FIPS)
   group by date, c.FIPS, state_id
 )
+
 select distinct w.day, w.temp, w.feelslike, w.humidity, c.state_id, FIPS fip_code,
     c.positive, c.death, population
 from weather w

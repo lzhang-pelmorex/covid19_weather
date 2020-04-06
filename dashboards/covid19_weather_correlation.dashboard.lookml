@@ -140,6 +140,6 @@
   - name: Date_Range
     title: Date_Range
     type: date_filter
-    default_value: 2020/01/01 to 2020/03/31
+    default_value: after 2020/02/01
     allow_multiple_values: true
     required: false
