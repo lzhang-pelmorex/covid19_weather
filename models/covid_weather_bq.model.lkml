@@ -1,8 +1,9 @@
-connection: "snowflakedb"
+connection: "bigquery_wip"
 
 
 # include all the views
-include: "/views/**/*.view"
+include: "/views/v_historical_bq.view"
+include: "/views/v_historical_correlation_bq.view"
 
 # include all the dashboards
 include: "/dashboards/**/*.dashboard"
@@ -14,9 +15,8 @@ datagroup: covid19_weather_default_datagroup {
 
 persist_with: covid19_weather_default_datagroup
 
-explore: covid_weather {}
-
-explore: v_covid_fx {}
+explore: v_historical_bq {}
+explore: v_historical_correlation_bq {}
 
 # explore: ct_us_covid_tests {}
 
