@@ -39,13 +39,26 @@
     col: 12
     width: 12
     height: 12
+  - name: ''
+    type: text
+    title_text: ''
+    body_text: "**R Equation:** \n3.968 − 0.0383 \U0001d447\U0001d452\U0001d45a\U0001d45d\
+      \U0001d452\U0001d45f\U0001d44e\U0001d461\U0001d462\U0001d45f\U0001d452 − 0.0224\
+      \ \U0001d445\U0001d452\U0001d459\U0001d44e\U0001d461\U0001d456\U0001d463\U0001d452\
+      \U0001d43b\U0001d462\U0001d45a\U0001d456\U0001d451\U0001d456\U0001d461\U0001d466\
+      \n\n**Predicted Positive Cases:**\nR * Total Positive Cases (in the last 15\
+      \ days)"
+    row: 0
+    col: 0
+    width: 12
+    height: 3
   - title: Correlation Overtime
     name: Correlation Overtime
     model: covid19_weather
     explore: v_historical_sf
     type: looker_line
-    fields: [v_historical_sf.day, v_historical_sf.R, v_historical_sf.positive_actual,
-      v_historical_sf.positive_predicted]
+    fields: [v_historical_sf.day, v_historical_sf.R, v_historical_sf.positive_predicted,
+      v_historical_sf.positive_actual]
     sorts: [v_historical_sf.day desc]
     limit: 500
     x_axis_gridlines: false
@@ -72,11 +85,14 @@
     y_axis_combined: true
     show_null_points: true
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: v_historical_sf.positive,
-            id: v_historical_sf.positive, name: Positive}], showLabels: true, showValues: true,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear},
-      {label: !!null '', orientation: right, series: [{axisId: v_historical_sf.R,
-            id: v_historical_sf.R, name: R}], showLabels: true, showValues: true,
+    y_axes: [{label: '', orientation: left, series: [{axisId: v_historical_sf.positive_actual,
+            id: v_historical_sf.positive_actual, name: Actual}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
+        label: '', orientation: left, series: [{axisId: v_historical_sf.positive_predicted,
+            id: v_historical_sf.positive_predicted, name: Predicted}], showLabels: true,
+        showValues: true, unpinAxis: false, tickDensity: default, type: linear}, {
+        label: !!null '', orientation: right, series: [{axisId: v_historical_sf.R,
+            id: v_historical_sf.R, name: Calculated R}], showLabels: true, showValues: true,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
     series_types:
       v_historical_sf.R: area
@@ -88,6 +104,8 @@
     series_labels:
       v_historical_sf.positive: "#s of Positive Cases"
       v_historical_sf.R: Calculated R
+      v_historical_sf.positive_actual: Actual
+      v_historical_sf.positive_predicted: Predicted
     defaults_version: 1
     listen:
       State: v_historical_sf.state_name
@@ -95,19 +113,6 @@
     col: 0
     width: 12
     height: 9
-  - name: ''
-    type: text
-    title_text: ''
-    body_text: "**R Equation:** \n3.968 − 0.0383 \U0001d447\U0001d452\U0001d45a\U0001d45d\
-      \U0001d452\U0001d45f\U0001d44e\U0001d461\U0001d462\U0001d45f\U0001d452 − 0.0224\
-      \ \U0001d445\U0001d452\U0001d459\U0001d44e\U0001d461\U0001d456\U0001d463\U0001d452\
-      \U0001d43b\U0001d462\U0001d45a\U0001d456\U0001d451\U0001d456\U0001d461\U0001d466\
-      \n\n**Predicted Positive Cases:**\nR * Total Positive Cases (in the last 15\
-      \ days)"
-    row: 0
-    col: 0
-    width: 12
-    height: 3
   filters:
   - name: State
     title: State
