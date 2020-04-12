@@ -1,15 +1,15 @@
 - dashboard: covid19_forecast
-  title: COVID19 Forecast (next 15 days)
+  title: COVID19 Forecast
   layout: newspaper
   elements:
-  - title: Prediction by County
-    name: Prediction by County
+  - title: Predicted R (next 15 days)
+    name: Predicted R (next 15 days)
     model: covid19_weather
-    explore: v_covid_fx
+    explore: v_forecast_sf
     type: looker_map
-    fields: [v_covid_fx.county, v_covid_fx.prediction]
-    sorts: [v_covid_fx.prediction desc]
-    limit: 500
+    fields: [v_forecast_sf.county, v_forecast_sf.R]
+    sorts: [v_forecast_sf.R desc]
+    limit: 4000
     map_plot_mode: points
     heatmap_gridlines: false
     heatmap_gridlines_empty: false
@@ -32,26 +32,29 @@
     quantize_map_value_colors: false
     reverse_map_value_colors: false
     defaults_version: 1
-    listen: {}
+    listen:
+      State: v_forecast_sf.state_name
     row: 0
-    col: 12
+    col: 0
     width: 12
     height: 12
-  - title: Total R by County
-    name: Total R by County
+  - title: 'Predicted #s of Positive Cases (next 15 days)'
+    name: 'Predicted #s of Positive Cases (next 15 days)'
     model: covid19_weather
-    explore: v_covid_fx
+    explore: v_forecast_sf
     type: looker_map
-    fields: [v_covid_fx.county, v_covid_fx.R]
-    sorts: [v_covid_fx.R desc]
-    limit: 4000
+    fields: [v_forecast_sf.prediction, v_forecast_sf.county]
+    filters:
+      v_forecast_sf.prediction: ">0"
+    sorts: [v_forecast_sf.prediction desc]
+    limit: 500
     map_plot_mode: points
-    heatmap_gridlines: true
+    heatmap_gridlines: false
     heatmap_gridlines_empty: false
     heatmap_opacity: 0.5
     show_region_field: true
     draw_map_labels_above_data: true
-    map_tile_provider: light
+    map_tile_provider: light_no_labels
     map_position: fit_data
     map_scale_indicator: 'off'
     map_pannable: true
@@ -66,13 +69,21 @@
     show_legend: true
     quantize_map_value_colors: false
     reverse_map_value_colors: false
-    series_types: {}
-    map: auto
-    map_projection: ''
-    quantize_colors: false
     defaults_version: 1
-    listen: {}
+    listen:
+      State: v_forecast_sf.state_name
     row: 0
-    col: 0
+    col: 12
     width: 12
     height: 12
+  filters:
+  - name: State
+    title: State
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    model: covid19_weather
+    explore: v_forecast_sf
+    listens_to_filters: []
+    field: v_forecast_sf.state_name

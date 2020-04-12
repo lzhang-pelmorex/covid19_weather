@@ -16,7 +16,11 @@ persist_with: covid19_weather_default_datagroup
 
 explore: covid_weather {}
 
-explore: v_covid_fx {}
+explore: v_forecast_sf {}
+
+explore: v_historical_sf {}
+
+explore: v_historical_correlation_sf {}
 
 # explore: ct_us_covid_tests {}
 
